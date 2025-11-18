@@ -13,4 +13,13 @@ env.add_router(router)
 name=st.text input ("Enter your name")
 
 #knowledge base
-env.build('(deftemplate result(sul)
+env.build('(deftemplate result(slot name))')
+env.assert_string(f'(result (name "{name}'))')
+env.run
+
+#output
+results=[]
+for fact in env.facts():
+  if fact.template.name=='result':
+    results.append(fact['name'])
+st.write(results[0],"better output")
